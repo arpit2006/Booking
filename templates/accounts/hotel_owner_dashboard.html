@@ -1,0 +1,381 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Hotel Owner Dashboard - {{ site_name }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .dashboard-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 2rem 0;
+        margin-bottom: 2rem;
+    }
+    
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    .stat-card {
+        background: white;
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        border-left: 4px solid var(--primary-color);
+        transition: transform 0.3s ease;
+    }
+    
+    .stat-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+    
+    .stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 0.5rem;
+    }
+    
+    .stat-label {
+        color: #6c757d;
+        font-weight: 500;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+        letter-spacing: 0.5px;
+    }
+    
+    .stat-icon {
+        float: right;
+        font-size: 2rem;
+        color: var(--primary-color);
+        opacity: 0.3;
+    }
+    
+    .quick-actions {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    .action-btn {
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+        background: white;
+        border: 2px solid #e9ecef;
+        border-radius: 8px;
+        text-decoration: none;
+        color: var(--dark-color);
+        transition: all 0.3s ease;
+        font-weight: 500;
+    }
+    
+    .action-btn:hover {
+        border-color: var(--primary-color);
+        color: var(--primary-color);
+        transform: translateY(-2px);
+    }
+    
+    .action-btn i {
+        font-size: 1.5rem;
+        margin-right: 0.75rem;
+        color: var(--primary-color);
+    }
+    
+    .recent-bookings {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+    
+    .table-header {
+        background: var(--primary-color);
+        color: white;
+        padding: 1rem 1.5rem;
+        font-weight: 600;
+    }
+    
+    .booking-status {
+        padding: 0.25rem 0.5rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+    
+    .status-pending { background: #fff3cd; color: #856404; }
+    .status-confirmed { background: #d4edda; color: #155724; }
+    .status-checked-in { background: #cce5ff; color: #004085; }
+    .status-checked-out { background: #f8d7da; color: #721c24; }
+    .status-cancelled { background: #f5f5f5; color: #6c757d; }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Dashboard Header -->
+<div class="dashboard-header">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1 class="mb-0">Hotel Owner Dashboard</h1>
+                <p class="lead mb-0 opacity-75">Manage your properties and bookings</p>
+            </div>
+            <div class="col-md-4 text-md-end">
+                <div class="d-flex align-items-center justify-content-md-end">
+                    <div class="me-3">
+                        <small class="opacity-75">Last updated</small><br>
+                        <strong>{{ "now"|date:"M d, Y - H:i" }}</strong>
+                    </div>
+                    <i class="fas fa-clock fa-2x opacity-50"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <!-- Statistics Grid -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <i class="fas fa-hotel stat-icon"></i>
+            <div class="stat-number">{{ total_hotels|default:0 }}</div>
+            <div class="stat-label">Total Hotels</div>
+        </div>
+        
+        <div class="stat-card">
+            <i class="fas fa-calendar-check stat-icon"></i>
+            <div class="stat-number">{{ total_bookings|default:0 }}</div>
+            <div class="stat-label">Total Bookings</div>
+        </div>
+        
+        <div class="stat-card">
+            <i class="fas fa-dollar-sign stat-icon"></i>
+            <div class="stat-number">${{ total_revenue|floatformat:0|default:0 }}</div>
+            <div class="stat-label">Total Revenue</div>
+        </div>
+        
+        <div class="stat-card">
+            <i class="fas fa-star stat-icon"></i>
+            <div class="stat-number">{{ average_rating|floatformat:1|default:"0.0" }}</div>
+            <div class="stat-label">Average Rating</div>
+        </div>
+    </div>
+    
+    <!-- Quick Actions -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0"><i class="fas fa-bolt me-2"></i>Quick Actions</h5>
+        </div>
+        <div class="card-body">
+            <div class="quick-actions">
+                <a href="#" class="action-btn">
+                    <i class="fas fa-plus-circle"></i>
+                    Add New Hotel
+                </a>
+                <a href="#" class="action-btn">
+                    <i class="fas fa-bed"></i>
+                    Manage Rooms
+                </a>
+                <a href="#" class="action-btn">
+                    <i class="fas fa-calendar-alt"></i>
+                    View Calendar
+                </a>
+                <a href="#" class="action-btn">
+                    <i class="fas fa-chart-line"></i>
+                    Analytics
+                </a>
+                <a href="#" class="action-btn">
+                    <i class="fas fa-cog"></i>
+                    Settings
+                </a>
+                <a href="#" class="action-btn">
+                    <i class="fas fa-envelope"></i>
+                    Messages
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <!-- Recent Bookings -->
+        <div class="col-lg-8 mb-4">
+            <div class="recent-bookings">
+                <div class="table-header">
+                    <i class="fas fa-calendar-check me-2"></i>Recent Bookings
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Guest</th>
+                                <th>Hotel</th>
+                                <th>Check-in</th>
+                                <th>Nights</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for booking in hotel_bookings %}
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-primary rounded-circle me-2 d-flex align-items-center justify-content-center" style="width: 35px; height: 35px;">
+                                            <i class="fas fa-user text-white small"></i>
+                                        </div>
+                                        <div>
+                                            <div class="fw-semibold">{{ booking.guest_name }}</div>
+                                            <small class="text-muted">{{ booking.guest_email }}</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="fw-semibold">{{ booking.hotel.name }}</div>
+                                    <small class="text-muted">{{ booking.hotel.city }}</small>
+                                </td>
+                                <td>{{ booking.check_in|date:"M d, Y" }}</td>
+                                <td>{{ booking.nights_count }}</td>
+                                <td class="fw-bold text-success">${{ booking.total_amount }}</td>
+                                <td>
+                                    <span class="booking-status status-{{ booking.status }}">
+                                        {{ booking.get_status_display }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="btn-group btn-group-sm">
+                                        <button class="btn btn-outline-primary btn-sm" title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-outline-secondary btn-sm" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="7" class="text-center py-4 text-muted">
+                                    <i class="fas fa-calendar-times fa-2x mb-2 d-block opacity-50"></i>
+                                    No bookings found
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Hotel List -->
+        <div class="col-lg-4 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="mb-0"><i class="fas fa-hotel me-2"></i>Your Hotels</h6>
+                </div>
+                <div class="card-body p-0">
+                    {% for hotel in hotels %}
+                    <div class="d-flex align-items-center p-3 border-bottom">
+                        <div class="me-3">
+                            {% if hotel.main_image %}
+                            <img src="{{ hotel.main_image.url }}" alt="{{ hotel.name }}" 
+                                 class="rounded" style="width: 50px; height: 50px; object-fit: cover;">
+                            {% else %}
+                            <div class="bg-light rounded d-flex align-items-center justify-content-center" 
+                                 style="width: 50px; height: 50px;">
+                                <i class="fas fa-hotel text-muted"></i>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="flex-grow-1">
+                            <div class="fw-semibold">{{ hotel.name }}</div>
+                            <small class="text-muted">{{ hotel.city }}</small>
+                            <div class="mt-1">
+                                <small class="text-warning">
+                                    {% for i in "12345" %}
+                                        {% if forloop.counter <= hotel.star_rating %}
+                                            <i class="fas fa-star"></i>
+                                        {% else %}
+                                            <i class="far fa-star"></i>
+                                        {% endif %}
+                                    {% endfor %}
+                                </small>
+                                <span class="badge bg-primary ms-1">{{ hotel.guest_rating }}/5</span>
+                            </div>
+                        </div>
+                        <div class="text-end">
+                            <button class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-cog"></i>
+                            </button>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="text-center py-4 text-muted">
+                        <i class="fas fa-hotel fa-2x mb-2 d-block opacity-50"></i>
+                        <p class="mb-2">No hotels added yet</p>
+                        <a href="#" class="btn btn-primary btn-sm">
+                            <i class="fas fa-plus me-1"></i>Add First Hotel
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Performance Charts -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="mb-0"><i class="fas fa-chart-line me-2"></i>Performance Overview</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Booking Trends</h6>
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle me-2"></i>
+                                Charts will be implemented with a charting library like Chart.js
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Revenue Analysis</h6>
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle me-2"></i>
+                                Revenue breakdown and growth analysis coming soon
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Auto-refresh dashboard every 5 minutes
+    setTimeout(function() {
+        window.location.reload();
+    }, 300000); // 5 minutes
+    
+    // Add click handlers for quick actions
+    document.querySelectorAll('.action-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const action = this.textContent.trim();
+            BookingMVP.showNotification(`${action} feature coming soon!`, 'info');
+        });
+    });
+});
+</script>
+{% endblock %}

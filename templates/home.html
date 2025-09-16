@@ -1,0 +1,452 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ site_name }} - {{ site_tagline }}{% endblock %}
+
+{% block meta_description %}Book amazing hotels worldwide with {{ site_name }}. Find the perfect accommodation for your next trip with instant confirmation and best price guarantee.{% endblock %}
+
+{% block extra_css %}
+<style>
+    .hero-section {
+        background: linear-gradient(135deg, rgba(0, 102, 204, 0.9), rgba(0, 68, 153, 0.9)),
+                    url('https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+        background-size: cover;
+        background-position: center;
+        min-height: 70vh;
+    }
+    
+    .feature-icon {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 2rem;
+        margin: 0 auto 1rem;
+    }
+    
+    .testimonial-card {
+        background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+        border-left: 4px solid var(--primary-color);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section d-flex align-items-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center hero-content">
+                <h1 class="display-4 fw-bold mb-4 animate-on-scroll">
+                    Find Your Perfect Stay
+                </h1>
+                <p class="lead mb-5 animate-on-scroll">
+                    Discover amazing hotels worldwide with instant booking and best price guarantee
+                </p>
+                
+                <!-- Search Form -->
+                <div class="search-form animate-on-scroll">
+                    <form id="search-form" method="GET" action="{% url 'hotels:hotel_list' %}" class="needs-validation" novalidate>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label for="location" class="form-label fw-semibold">Where are you going?</label>
+                                <div class="position-relative">
+                                    <input type="text" 
+                                           class="form-control form-control-lg" 
+                                           id="location" 
+                                           name="location" 
+                                           placeholder="City, hotel, or landmark"
+                                           value="{{ request.GET.location }}"
+                                           required>
+                                    <i class="fas fa-map-marker-alt position-absolute top-50 end-0 translate-middle-y me-3 text-muted"></i>
+                                    <div class="invalid-feedback">
+                                        Please enter a destination.
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-3">
+                                <label for="check_in" class="form-label fw-semibold">Check-in</label>
+                                <input type="date" 
+                                       class="form-control form-control-lg" 
+                                       id="check_in" 
+                                       name="check_in"
+                                       value="{{ request.GET.check_in }}"
+                                       required>
+                                <div class="invalid-feedback">
+                                    Please select check-in date.
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-3">
+                                <label for="check_out" class="form-label fw-semibold">Check-out</label>
+                                <input type="date" 
+                                       class="form-control form-control-lg" 
+                                       id="check_out" 
+                                       name="check_out"
+                                       value="{{ request.GET.check_out }}"
+                                       required>
+                                <div class="invalid-feedback">
+                                    Please select check-out date.
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-2">
+                                <label for="guests" class="form-label fw-semibold">Guests</label>
+                                <select class="form-select form-select-lg" id="guests" name="guests">
+                                    <option value="1" {% if request.GET.guests == '1' %}selected{% endif %}>1 Guest</option>
+                                    <option value="2" {% if request.GET.guests == '2' or not request.GET.guests %}selected{% endif %}>2 Guests</option>
+                                    <option value="3" {% if request.GET.guests == '3' %}selected{% endif %}>3 Guests</option>
+                                    <option value="4" {% if request.GET.guests == '4' %}selected{% endif %}>4 Guests</option>
+                                    <option value="5" {% if request.GET.guests == '5' %}selected{% endif %}>5+ Guests</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="row mt-4">
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn btn-primary btn-lg px-5 py-3">
+                                    <i class="fas fa-search me-2"></i>
+                                    Search Hotels
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="display-6 fw-bold mb-3">Why Choose {{ site_name }}?</h2>
+                <p class="lead text-muted">Experience the best in hotel booking with our comprehensive platform</p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-6">
+                <div class="text-center animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3">Easy Search</h5>
+                    <p class="text-muted">Find the perfect hotel with our advanced search and filtering options</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6">
+                <div class="text-center animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3">Secure Booking</h5>
+                    <p class="text-muted">Your personal and payment information is always protected</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6">
+                <div class="text-center animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-tags"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3">Best Prices</h5>
+                    <p class="text-muted">Get the best deals with our price match guarantee</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6">
+                <div class="text-center animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3">24/7 Support</h5>
+                    <p class="text-muted">Round-the-clock customer support for all your needs</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Popular Destinations -->
+{% if popular_destinations %}
+<section class="py-5">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="display-6 fw-bold mb-3">Popular Destinations</h2>
+                <p class="lead text-muted">Explore our most loved destinations around the world</p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            {% for destination in popular_destinations %}
+            <div class="col-lg-4 col-md-6">
+                <div class="card border-0 shadow hotel-card animate-on-scroll">
+                    {% if destination.image %}
+                    <img src="{{ destination.image.url }}" class="card-img-top" alt="{{ destination.name }}">
+                    {% else %}
+                    <div class="card-img-top bg-primary d-flex align-items-center justify-content-center" style="height: 200px;">
+                        <i class="fas fa-city text-white fa-3x"></i>
+                    </div>
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">{{ destination.name }}</h5>
+                        <p class="text-muted small mb-2">
+                            <i class="fas fa-map-marker-alt me-1"></i>{{ destination.country.name }}
+                        </p>
+                        {% if destination.description %}
+                        <p class="card-text text-muted">{{ destination.description|truncatewords:15 }}</p>
+                        {% endif %}
+                        <a href="{% url 'hotels:hotel_list' %}?location={{ destination.name }}" class="btn btn-outline-primary">
+                            Explore Hotels
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Featured Hotels -->
+{% if featured_hotels %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="display-6 fw-bold mb-3">Featured Hotels</h2>
+                <p class="lead text-muted">Handpicked premium accommodations for an exceptional stay</p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            {% for hotel in featured_hotels %}
+            <div class="col-lg-4 col-md-6">
+                <div class="card border-0 shadow hotel-card animate-on-scroll" data-hotel-id="{{ hotel.id }}">
+                    {% if hotel.main_image %}
+                    <img src="{{ hotel.main_image.url }}" class="card-img-top" alt="{{ hotel.name }}">
+                    {% else %}
+                    <div class="card-img-top bg-primary d-flex align-items-center justify-content-center" style="height: 200px;">
+                        <i class="fas fa-hotel text-white fa-3x"></i>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h5 class="card-title fw-bold mb-0">{{ hotel.name }}</h5>
+                            <button class="btn btn-sm btn-outline-light wishlist-btn" onclick="toggleWishlist('{{ hotel.id }}')">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                        
+                        <p class="text-muted small mb-2">
+                            <i class="fas fa-map-marker-alt me-1"></i>{{ hotel.city }}
+                        </p>
+                        
+                        <div class="hotel-rating mb-2">
+                            <div class="star-rating">
+                                {% for i in "12345" %}
+                                    {% if forloop.counter <= hotel.star_rating %}
+                                        <i class="fas fa-star"></i>
+                                    {% else %}
+                                        <i class="far fa-star"></i>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            {% if hotel.guest_rating > 0 %}
+                            <span class="rating-score ms-2">{{ hotel.guest_rating }}/5</span>
+                            <span class="text-muted small">({{ hotel.total_reviews }} reviews)</span>
+                            {% endif %}
+                        </div>
+                        
+                        {% if hotel.short_description %}
+                        <p class="card-text text-muted small">{{ hotel.short_description|truncatewords:12 }}</p>
+                        {% endif %}
+                        
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <span class="price-tag">${{ hotel.lowest_price }}</span>
+                                <small class="price-per-night text-muted d-block">per night</small>
+                            </div>
+                            <a href="{{ hotel.get_absolute_url }}" class="btn btn-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-5">
+            <a href="{% url 'hotels:hotel_list' %}" class="btn btn-outline-primary btn-lg">
+                View All Hotels
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Testimonials -->
+<section class="py-5">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="display-6 fw-bold mb-3">What Our Guests Say</h2>
+                <p class="lead text-muted">Real experiences from real travelers</p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="card testimonial-card border-0 p-4 h-100 animate-on-scroll">
+                    <div class="mb-3">
+                        <div class="star-rating text-warning">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <blockquote class="mb-3">
+                        "Amazing experience! The booking process was smooth and the hotel exceeded our expectations. Definitely using {{ site_name }} again!"
+                    </blockquote>
+                    <div class="d-flex align-items-center">
+                        <div class="bg-primary rounded-circle me-3 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                            <i class="fas fa-user text-white"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-0 fw-bold">Sarah Johnson</h6>
+                            <small class="text-muted">New York, USA</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="card testimonial-card border-0 p-4 h-100 animate-on-scroll">
+                    <div class="mb-3">
+                        <div class="star-rating text-warning">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <blockquote class="mb-3">
+                        "Best prices and excellent customer service. Found the perfect hotel for our honeymoon. Thank you {{ site_name }}!"
+                    </blockquote>
+                    <div class="d-flex align-items-center">
+                        <div class="bg-primary rounded-circle me-3 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                            <i class="fas fa-user text-white"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-0 fw-bold">Michael Chen</h6>
+                            <small class="text-muted">London, UK</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="card testimonial-card border-0 p-4 h-100 animate-on-scroll">
+                    <div class="mb-3">
+                        <div class="star-rating text-warning">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <blockquote class="mb-3">
+                        "User-friendly platform with great hotel options. Made our business trip planning so much easier!"
+                    </blockquote>
+                    <div class="d-flex align-items-center">
+                        <div class="bg-primary rounded-circle me-3 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                            <i class="fas fa-user text-white"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-0 fw-bold">Emma Rodriguez</h6>
+                            <small class="text-muted">Madrid, Spain</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter -->
+<section class="py-5 bg-primary text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h3 class="fw-bold mb-3">Stay Updated</h3>
+                <p class="lead mb-4">Get the latest deals and travel tips delivered to your inbox</p>
+                
+                <form id="newsletter-form" class="row g-3 justify-content-center">
+                    <div class="col-md-6">
+                        <input type="email" class="form-control form-control-lg" placeholder="Enter your email" required>
+                    </div>
+                    <div class="col-md-auto">
+                        <button type="submit" class="btn btn-light btn-lg">
+                            <i class="fas fa-paper-plane me-2"></i>Subscribe
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Set default dates
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+    const dayAfter = new Date(today);
+    dayAfter.setDate(today.getDate() + 2);
+    
+    const checkInInput = document.getElementById('check_in');
+    const checkOutInput = document.getElementById('check_out');
+    
+    if (!checkInInput.value) {
+        checkInInput.value = tomorrow.toISOString().split('T')[0];
+    }
+    if (!checkOutInput.value) {
+        checkOutInput.value = dayAfter.toISOString().split('T')[0];
+    }
+    
+    // Newsletter form
+    document.getElementById('newsletter-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = this.querySelector('input[type="email"]').value;
+        
+        // Here you would typically send the email to your backend
+        BookingMVP.showNotification('Thank you for subscribing!', 'success');
+        this.reset();
+    });
+    
+    // Wishlist functionality
+    window.toggleWishlist = function(hotelId) {
+        // Add wishlist functionality here
+        console.log('Toggle wishlist for hotel:', hotelId);
+        // You can implement actual wishlist API calls here
+    };
+});
+</script>
+{% endblock %}

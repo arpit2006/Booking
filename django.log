@@ -1,0 +1,415 @@
+INFO 2025-09-16 20:16:53,744 autoreload 20168 29972 Watching for file changes with StatReloader
+WARNING 2025-09-16 20:16:56,387 log 20168 13708 Not Found: /v1/models
+WARNING 2025-09-16 20:16:56,388 basehttp 20168 13708 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:17:02,316 log 20168 19648 Not Found: /v1/models
+WARNING 2025-09-16 20:17:02,317 basehttp 20168 19648 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:17:08,324 log 20168 23464 Not Found: /v1/models
+WARNING 2025-09-16 20:17:08,325 basehttp 20168 23464 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:17:14,322 log 20168 10712 Not Found: /v1/models
+WARNING 2025-09-16 20:17:14,323 basehttp 20168 10712 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:17:20,328 log 20168 10920 Not Found: /v1/models
+WARNING 2025-09-16 20:17:20,329 basehttp 20168 10920 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:17:26,323 log 20168 30128 Not Found: /v1/models
+WARNING 2025-09-16 20:17:26,323 basehttp 20168 30128 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:17:32,314 log 20168 4724 Not Found: /v1/models
+WARNING 2025-09-16 20:17:32,315 basehttp 20168 4724 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:17:38,314 log 20168 14856 Not Found: /v1/models
+WARNING 2025-09-16 20:17:38,314 basehttp 20168 14856 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:17:44,314 log 20168 9028 Not Found: /v1/models
+WARNING 2025-09-16 20:17:44,314 basehttp 20168 9028 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:17:50,313 log 20168 14616 Not Found: /v1/models
+WARNING 2025-09-16 20:17:50,313 basehttp 20168 14616 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:17:56,312 log 20168 4288 Not Found: /v1/models
+WARNING 2025-09-16 20:17:56,313 basehttp 20168 4288 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:18:02,311 log 20168 35992 Not Found: /v1/models
+WARNING 2025-09-16 20:18:02,312 basehttp 20168 35992 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:18:08,310 log 20168 33564 Not Found: /v1/models
+WARNING 2025-09-16 20:18:08,311 basehttp 20168 33564 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:18:14,315 log 20168 22172 Not Found: /v1/models
+WARNING 2025-09-16 20:18:14,315 basehttp 20168 22172 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:18:20,311 log 20168 30400 Not Found: /v1/models
+WARNING 2025-09-16 20:18:20,311 basehttp 20168 30400 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:18:25,323 log 20168 15464 Not Found: /v1/models
+WARNING 2025-09-16 20:18:25,324 basehttp 20168 15464 "GET /v1/models HTTP/1.1" 404 3000
+ERROR 2025-09-16 20:18:27,118 log 20168 10072 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 1035, in find_library
+    return parser.libraries[name]
+           ~~~~~~~~~~~~~~~~^^^^^^
+KeyError: 'bootstrap5'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\dabbe\booking-mvp\hotels\views.py", line 25, in home_view
+    return render(request, 'home.html', context)
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 299, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 1097, in load
+    lib = find_library(parser, name)
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 1037, in find_library
+    raise TemplateSyntaxError(
+    ...<5 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: 'bootstrap5' is not a registered tag library. Must be one of:
+admin_list
+admin_modify
+admin_urls
+cache
+crispy_forms_field
+crispy_forms_filters
+crispy_forms_tags
+crispy_forms_utils
+i18n
+l10n
+log
+rest_framework
+static
+tz
+ERROR 2025-09-16 20:18:27,123 basehttp 20168 10072 "GET / HTTP/1.1" 500 239527
+WARNING 2025-09-16 20:18:31,325 log 20168 12920 Not Found: /v1/models
+WARNING 2025-09-16 20:18:31,325 basehttp 20168 12920 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:18:37,322 log 20168 36688 Not Found: /v1/models
+WARNING 2025-09-16 20:18:37,322 basehttp 20168 36688 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:18:43,310 log 20168 5564 Not Found: /v1/models
+WARNING 2025-09-16 20:18:43,310 basehttp 20168 5564 "GET /v1/models HTTP/1.1" 404 3000
+ERROR 2025-09-16 20:18:45,344 log 20168 10072 Internal Server Error: /hotels/
+Traceback (most recent call last):
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 1035, in find_library
+    return parser.libraries[name]
+           ~~~~~~~~~~~~~~~~^^^^^^
+KeyError: 'bootstrap5'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\dabbe\booking-mvp\hotels\views.py", line 25, in home_view
+    return render(request, 'home.html', context)
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 299, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 1097, in load
+    lib = find_library(parser, name)
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 1037, in find_library
+    raise TemplateSyntaxError(
+    ...<5 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: 'bootstrap5' is not a registered tag library. Must be one of:
+admin_list
+admin_modify
+admin_urls
+cache
+crispy_forms_field
+crispy_forms_filters
+crispy_forms_tags
+crispy_forms_utils
+i18n
+l10n
+log
+rest_framework
+static
+tz
+ERROR 2025-09-16 20:18:45,348 basehttp 20168 10072 "GET /hotels/ HTTP/1.1" 500 239462
+WARNING 2025-09-16 20:18:48,339 log 20168 10028 Not Found: /v1/models
+WARNING 2025-09-16 20:18:48,340 basehttp 20168 10028 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:18:54,315 log 20168 33972 Not Found: /v1/models
+WARNING 2025-09-16 20:18:54,316 basehttp 20168 33972 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:18:59,325 log 20168 34476 Not Found: /v1/models
+WARNING 2025-09-16 20:18:59,325 basehttp 20168 34476 "GET /v1/models HTTP/1.1" 404 3000
+ERROR 2025-09-16 20:19:04,563 log 20168 5096 Internal Server Error: /accounts/register/
+Traceback (most recent call last):
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: accounts/register.html
+ERROR 2025-09-16 20:19:04,565 basehttp 20168 5096 "GET /accounts/register/ HTTP/1.1" 500 91833
+WARNING 2025-09-16 20:19:05,323 log 20168 25168 Not Found: /v1/models
+WARNING 2025-09-16 20:19:05,324 basehttp 20168 25168 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:19:11,326 log 20168 14856 Not Found: /v1/models
+WARNING 2025-09-16 20:19:11,326 basehttp 20168 14856 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:19:17,310 log 20168 12372 Not Found: /v1/models
+WARNING 2025-09-16 20:19:17,310 basehttp 20168 12372 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:19:23,322 log 20168 33420 Not Found: /v1/models
+WARNING 2025-09-16 20:19:23,323 basehttp 20168 33420 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:19:29,311 log 20168 29120 Not Found: /v1/models
+WARNING 2025-09-16 20:19:29,311 basehttp 20168 29120 "GET /v1/models HTTP/1.1" 404 3000
+ERROR 2025-09-16 20:19:32,947 log 20168 26772 Internal Server Error: /accounts/register/
+Traceback (most recent call last):
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: accounts/register.html
+ERROR 2025-09-16 20:19:32,948 basehttp 20168 26772 "GET /accounts/register/ HTTP/1.1" 500 91970
+WARNING 2025-09-16 20:19:34,326 log 20168 26808 Not Found: /v1/models
+WARNING 2025-09-16 20:19:34,326 basehttp 20168 26808 "GET /v1/models HTTP/1.1" 404 3000
+ERROR 2025-09-16 20:19:34,605 log 20168 26772 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 1035, in find_library
+    return parser.libraries[name]
+           ~~~~~~~~~~~~~~~~^^^^^^
+KeyError: 'bootstrap5'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\dabbe\booking-mvp\hotels\views.py", line 25, in home_view
+    return render(request, 'home.html', context)
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 299, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 1097, in load
+    lib = find_library(parser, name)
+  File "C:\Users\dabbe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 1037, in find_library
+    raise TemplateSyntaxError(
+    ...<5 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: 'bootstrap5' is not a registered tag library. Must be one of:
+admin_list
+admin_modify
+admin_urls
+cache
+crispy_forms_field
+crispy_forms_filters
+crispy_forms_tags
+crispy_forms_utils
+i18n
+l10n
+log
+rest_framework
+static
+tz
+ERROR 2025-09-16 20:19:34,608 basehttp 20168 26772 "GET / HTTP/1.1" 500 239378
+WARNING 2025-09-16 20:19:40,324 log 20168 9616 Not Found: /v1/models
+WARNING 2025-09-16 20:19:40,324 basehttp 20168 9616 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:19:46,309 log 20168 31784 Not Found: /v1/models
+WARNING 2025-09-16 20:19:46,309 basehttp 20168 31784 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:19:51,322 log 20168 13604 Not Found: /v1/models
+WARNING 2025-09-16 20:19:51,323 basehttp 20168 13604 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:19:57,324 log 20168 17140 Not Found: /v1/models
+WARNING 2025-09-16 20:19:57,325 basehttp 20168 17140 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:20:03,324 log 20168 26072 Not Found: /v1/models
+WARNING 2025-09-16 20:20:03,325 basehttp 20168 26072 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:20:09,312 log 20168 35396 Not Found: /v1/models
+WARNING 2025-09-16 20:20:09,312 basehttp 20168 35396 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:20:14,325 log 20168 31256 Not Found: /v1/models
+WARNING 2025-09-16 20:20:14,326 basehttp 20168 31256 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:20:21,774 log 20168 464 Not Found: /v1/models
+WARNING 2025-09-16 20:20:21,775 basehttp 20168 464 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:20:27,376 log 20168 28864 Not Found: /v1/models
+WARNING 2025-09-16 20:20:27,376 basehttp 20168 28864 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:20:33,370 log 20168 31040 Not Found: /v1/models
+WARNING 2025-09-16 20:20:33,371 basehttp 20168 31040 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:20:39,375 log 20168 36252 Not Found: /v1/models
+WARNING 2025-09-16 20:20:39,375 basehttp 20168 36252 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:20:45,365 log 20168 22504 Not Found: /v1/models
+WARNING 2025-09-16 20:20:45,365 basehttp 20168 22504 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:20:51,366 log 20168 15816 Not Found: /v1/models
+WARNING 2025-09-16 20:20:51,367 basehttp 20168 15816 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:20:57,373 log 20168 6468 Not Found: /v1/models
+WARNING 2025-09-16 20:20:57,373 basehttp 20168 6468 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:21:03,389 log 20168 33136 Not Found: /v1/models
+WARNING 2025-09-16 20:21:03,390 basehttp 20168 33136 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:21:09,405 log 20168 14396 Not Found: /v1/models
+WARNING 2025-09-16 20:21:09,405 basehttp 20168 14396 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:21:15,376 log 20168 34140 Not Found: /v1/models
+WARNING 2025-09-16 20:21:15,376 basehttp 20168 34140 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:21:21,375 log 20168 25168 Not Found: /v1/models
+WARNING 2025-09-16 20:21:21,376 basehttp 20168 25168 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:21:27,384 log 20168 20328 Not Found: /v1/models
+WARNING 2025-09-16 20:21:27,385 basehttp 20168 20328 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:21:33,380 log 20168 34708 Not Found: /v1/models
+WARNING 2025-09-16 20:21:33,381 basehttp 20168 34708 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:21:39,411 log 20168 34944 Not Found: /v1/models
+WARNING 2025-09-16 20:21:39,412 basehttp 20168 34944 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:21:45,377 log 20168 21372 Not Found: /v1/models
+WARNING 2025-09-16 20:21:45,378 basehttp 20168 21372 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:21:51,381 log 20168 26932 Not Found: /v1/models
+WARNING 2025-09-16 20:21:51,381 basehttp 20168 26932 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:21:57,366 log 20168 32156 Not Found: /v1/models
+WARNING 2025-09-16 20:21:57,367 basehttp 20168 32156 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:22:03,389 log 20168 22128 Not Found: /v1/models
+WARNING 2025-09-16 20:22:03,389 basehttp 20168 22128 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:22:09,385 log 20168 22888 Not Found: /v1/models
+WARNING 2025-09-16 20:22:09,385 basehttp 20168 22888 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:22:15,379 log 20168 33684 Not Found: /v1/models
+WARNING 2025-09-16 20:22:15,380 basehttp 20168 33684 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:22:21,396 log 20168 20848 Not Found: /v1/models
+WARNING 2025-09-16 20:22:21,397 basehttp 20168 20848 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:22:27,385 log 20168 31852 Not Found: /v1/models
+WARNING 2025-09-16 20:22:27,386 basehttp 20168 31852 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:22:33,395 log 20168 33984 Not Found: /v1/models
+WARNING 2025-09-16 20:22:33,396 basehttp 20168 33984 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:22:39,404 log 20168 33600 Not Found: /v1/models
+WARNING 2025-09-16 20:22:39,405 basehttp 20168 33600 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:22:45,392 log 20168 29432 Not Found: /v1/models
+WARNING 2025-09-16 20:22:45,393 basehttp 20168 29432 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:22:51,379 log 20168 34168 Not Found: /v1/models
+WARNING 2025-09-16 20:22:51,380 basehttp 20168 34168 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:22:57,395 log 20168 12920 Not Found: /v1/models
+WARNING 2025-09-16 20:22:57,396 basehttp 20168 12920 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:23:03,402 log 20168 11924 Not Found: /v1/models
+WARNING 2025-09-16 20:23:03,403 basehttp 20168 11924 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:23:09,409 log 20168 30960 Not Found: /v1/models
+WARNING 2025-09-16 20:23:09,409 basehttp 20168 30960 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:23:15,389 log 20168 15044 Not Found: /v1/models
+WARNING 2025-09-16 20:23:15,390 basehttp 20168 15044 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:23:21,379 log 20168 29192 Not Found: /v1/models
+WARNING 2025-09-16 20:23:21,380 basehttp 20168 29192 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:23:27,368 log 20168 33924 Not Found: /v1/models
+WARNING 2025-09-16 20:23:27,368 basehttp 20168 33924 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:23:33,388 log 20168 36712 Not Found: /v1/models
+WARNING 2025-09-16 20:23:33,389 basehttp 20168 36712 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:23:39,382 log 20168 23656 Not Found: /v1/models
+WARNING 2025-09-16 20:23:39,382 basehttp 20168 23656 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:23:45,392 log 20168 26836 Not Found: /v1/models
+WARNING 2025-09-16 20:23:45,394 basehttp 20168 26836 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:23:51,373 log 20168 34472 Not Found: /v1/models
+WARNING 2025-09-16 20:23:51,373 basehttp 20168 34472 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:23:57,380 log 20168 13248 Not Found: /v1/models
+WARNING 2025-09-16 20:23:57,380 basehttp 20168 13248 "GET /v1/models HTTP/1.1" 404 3000
+WARNING 2025-09-16 20:24:03,389 log 20168 24860 Not Found: /v1/models
+WARNING 2025-09-16 20:24:03,390 basehttp 20168 24860 "GET /v1/models HTTP/1.1" 404 3000
+INFO 2025-09-16 20:45:59,112 autoreload 25732 19312 Watching for file changes with StatReloader
+INFO 2025-09-16 20:46:03,445 autoreload 25732 19312 C:\Users\dabbe\booking-mvp\backend\settings.py changed, reloading.
+INFO 2025-09-16 20:46:04,013 autoreload 20792 9832 Watching for file changes with StatReloader
+INFO 2025-09-16 20:50:03,616 autoreload 20792 9832 C:\Users\dabbe\booking-mvp\backend\settings.py changed, reloading.
+INFO 2025-09-16 20:50:04,207 autoreload 32888 24976 Watching for file changes with StatReloader
+INFO 2025-09-16 20:50:14,440 autoreload 32888 24976 C:\Users\dabbe\booking-mvp\backend\settings.py changed, reloading.

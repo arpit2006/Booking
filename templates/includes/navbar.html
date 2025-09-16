@@ -1,0 +1,145 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+    <div class="container">
+        <!-- Brand -->
+        <a class="navbar-brand fw-bold" href="{% url 'hotels:hotel_list' %}">
+            <i class="fas fa-hotel me-2"></i>
+            {{ site_name }}
+        </a>
+        
+        <!-- Mobile Toggle -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <!-- Navigation Links -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <!-- Main Navigation -->
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'hotels:hotel_list' %}">
+                        <i class="fas fa-home me-1"></i>Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'hotels:hotel_list' %}">
+                        <i class="fas fa-search me-1"></i>Search Hotels
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="exploreDropdown" role="button" 
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-map-marked-alt me-1"></i>Explore
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-city me-2"></i>Popular Cities</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-star me-2"></i>Top Rated Hotels</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-tag me-2"></i>Special Offers</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-info-circle me-2"></i>Travel Guide</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-phone me-1"></i>Support
+                    </a>
+                </li>
+            </ul>
+            
+            <!-- User Actions -->
+            <ul class="navbar-nav">
+                {% if user.is_authenticated %}
+                    <!-- Authenticated User Menu -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" 
+                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {% if user.profile_picture %}
+                                <img src="{{ user.profile_picture.url }}" alt="Profile" 
+                                     class="rounded-circle me-2" width="30" height="30">
+                            {% else %}
+                                <div class="bg-light rounded-circle me-2 d-flex align-items-center justify-content-center" 
+                                     style="width: 30px; height: 30px;">
+                                    <i class="fas fa-user text-primary"></i>
+                                </div>
+                            {% endif %}
+                            {{ user.get_full_name|default:user.username }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <h6 class="dropdown-header">
+                                    <div class="d-flex align-items-center">
+                                        <div class="me-2">
+                                            {% if user.profile_picture %}
+                                                <img src="{{ user.profile_picture.url }}" alt="Profile" 
+                                                     class="rounded-circle" width="40" height="40">
+                                            {% else %}
+                                                <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center" 
+                                                     style="width: 40px; height: 40px;">
+                                                    <i class="fas fa-user text-white"></i>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                        <div>
+                                            <div class="fw-bold">{{ user.get_full_name|default:user.username }}</div>
+                                            <small class="text-muted">{{ user.email }}</small>
+                                        </div>
+                                    </div>
+                                </h6>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'accounts:dashboard' %}">
+                                <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                            </a></li>
+                            <li><a class="dropdown-item" href="{% url 'accounts:profile' %}">
+                                <i class="fas fa-user-edit me-2"></i>My Profile
+                            </a></li>
+                            <li><a class="dropdown-item" href="#">
+                                <i class="fas fa-calendar-alt me-2"></i>My Bookings
+                            </a></li>
+                            <li><a class="dropdown-item" href="#">
+                                <i class="fas fa-heart me-2"></i>Wishlist
+                            </a></li>
+                            {% if user.user_type == 'hotel_owner' %}
+                                <li><hr class="dropdown-divider"></li>
+                                <li><h6 class="dropdown-header">Hotel Management</h6></li>
+                                <li><a class="dropdown-item" href="#">
+                                    <i class="fas fa-hotel me-2"></i>My Hotels
+                                </a></li>
+                                <li><a class="dropdown-item" href="#">
+                                    <i class="fas fa-plus me-2"></i>Add Hotel
+                                </a></li>
+                                <li><a class="dropdown-item" href="#">
+                                    <i class="fas fa-chart-bar me-2"></i>Analytics
+                                </a></li>
+                            {% endif %}
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">
+                                <i class="fas fa-cog me-2"></i>Settings
+                            </a></li>
+                            <li><a class="dropdown-item" href="{% url 'accounts:logout' %}">
+                                <i class="fas fa-sign-out-alt me-2"></i>Sign Out
+                            </a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <!-- Guest User Actions -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'accounts:login' %}">
+                            <i class="fas fa-sign-in-alt me-1"></i>Sign In
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-outline-light btn-sm ms-2" href="{% url 'accounts:register' %}">
+                            <i class="fas fa-user-plus me-1"></i>Sign Up
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Search Bar (appears on hotel search pages) -->
+{% block search_bar %}
+{% endblock %}

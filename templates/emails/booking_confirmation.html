@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 0;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+        .content {
+            padding: 30px;
+        }
+        .booking-details {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+        .detail-label {
+            font-weight: bold;
+            color: #333;
+        }
+        .detail-value {
+            color: #666;
+        }
+        .hotel-info {
+            background: #e3f2fd;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .hotel-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #1976d2;
+            margin-bottom: 10px;
+        }
+        .booking-id {
+            background: #2c3e50;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin: 20px 0;
+        }
+        .total-amount {
+            background: #28a745;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .action-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 25px;
+            margin: 10px 5px;
+            font-weight: bold;
+        }
+        .footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+        }
+        .contact-info {
+            margin: 20px 0;
+            padding: 15px;
+            background: #fff3cd;
+            border-radius: 5px;
+            border-left: 4px solid #ffc107;
+        }
+        @media only screen and (max-width: 600px) {
+            .container {
+                width: 100% !important;
+            }
+            .detail-row {
+                flex-direction: column;
+            }
+            .detail-label {
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🎉 Booking Confirmed!</h1>
+            <p>Your reservation has been successfully processed</p>
+        </div>
+        
+        <!-- Content -->
+        <div class="content">
+            <p>Dear {{ user.get_full_name|default:user.username }},</p>
+            
+            <p>Great news! Your booking has been confirmed. We're excited to welcome you to your upcoming stay.</p>
+            
+            <!-- Booking Reference -->
+            <div class="booking-id">
+                Booking Reference: {{ booking.booking_id }}
+            </div>
+            
+            <!-- Hotel Information -->
+            <div class="hotel-info">
+                <div class="hotel-name">{{ hotel.name }}</div>
+                <p><strong>📍 Address:</strong> {{ hotel.address }}, {{ hotel.city.name }}</p>
+                <p><strong>⭐ Rating:</strong> {{ hotel.star_rating }} stars</p>
+                {% if hotel.phone %}
+                <p><strong>📞 Phone:</strong> {{ hotel.phone }}</p>
+                {% endif %}
+            </div>
+            
+            <!-- Booking Details -->
+            <div class="booking-details">
+                <h3 style="margin-top: 0; color: #333;">Booking Details</h3>
+                <div class="detail-row">
+                    <span class="detail-label">Check-in Date:</span>
+                    <span class="detail-value">{{ booking.check_in|date:"F d, Y" }} (After 3:00 PM)</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Check-out Date:</span>
+                    <span class="detail-value">{{ booking.check_out|date:"F d, Y" }} (Before 11:00 AM)</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Duration:</span>
+                    <span class="detail-value">{{ booking.nights }} night{{ booking.nights|pluralize }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Guests:</span>
+                    <span class="detail-value">{{ booking.guests }} guest{{ booking.guests|pluralize }}</span>
+                </div>
+                {% if booking.room_type %}
+                <div class="detail-row">
+                    <span class="detail-label">Room Type:</span>
+                    <span class="detail-value">{{ booking.room_type|title }}</span>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Total Amount -->
+            <div class="total-amount">
+                Total Amount Paid: ${{ booking.total_amount }}
+            </div>
+            
+            <!-- Important Information -->
+            <div class="contact-info">
+                <h4 style="margin-top: 0;">📋 Important Information</h4>
+                <ul style="margin: 0; padding-left: 20px;">
+                    <li>Please bring a valid photo ID for check-in</li>
+                    <li>Keep this booking reference handy: <strong>{{ booking.booking_id }}</strong></li>
+                    <li>Check-in time is after 3:00 PM</li>
+                    <li>Check-out time is before 11:00 AM</li>
+                    <li>Free cancellation until 24 hours before check-in</li>
+                </ul>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div style="text-align: center; margin: 30px 0;">
+                <a href="{{ site_url }}/accounts/dashboard/" class="action-button">View My Bookings</a>
+                <a href="{{ site_url }}/hotels/" class="action-button">Book Another Hotel</a>
+            </div>
+            
+            <p>We hope you have a wonderful stay! If you have any questions or special requests, please don't hesitate to contact us.</p>
+            
+            <p>Best regards,<br>
+            The {{ site_name }} Team</p>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>Need help? Contact us at <strong>{{ support_email }}</strong> or call +1 (555) 123-4567</p>
+            <p>This is an automated email. Please do not reply to this message.</p>
+            <p>&copy; {{ current_year }} {{ site_name }}. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

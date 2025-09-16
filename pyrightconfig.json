@@ -1,0 +1,17 @@
+{
+  "typeCheckingMode": "basic",
+  "reportArgumentType": "none",
+  "reportAttributeAccessIssue": "none",
+  "reportReturnType": "none",
+  "reportOperatorIssue": "none",
+  "reportCallIssue": "none",
+  "reportIncompatibleMethodOverride": "none",
+  "reportMissingImports": "none",
+  "reportUndefinedVariable": "warning",
+  "reportConstantRedefinition": "none",
+  "reportGeneralTypeIssues": "none",
+  "reportUnknownVariableType": "none",
+  "reportUnknownMemberType": "none",
+  "reportMissingTypeStubs": "none",
+  "reportUnboundVariable": "warning"
+}

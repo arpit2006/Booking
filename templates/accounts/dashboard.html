@@ -1,0 +1,366 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Dashboard - {{ site_name }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .dashboard-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 2rem 0;
+        margin-bottom: 2rem;
+    }
+    
+    .welcome-card {
+        background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.95));
+        border-radius: 15px;
+        padding: 2rem;
+        margin-top: -60px;
+        position: relative;
+        z-index: 2;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    
+    .booking-card {
+        border-left: 4px solid var(--primary-color);
+        transition: all 0.3s ease;
+    }
+    
+    .booking-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+    
+    .booking-status {
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+    
+    .status-pending { background: #fff3cd; color: #856404; }
+    .status-confirmed { background: #d4edda; color: #155724; }
+    .status-checked-in { background: #cce5ff; color: #004085; }
+    .status-checked-out { background: #f8d7da; color: #721c24; }
+    .status-cancelled { background: #f5f5f5; color: #6c757d; }
+    
+    .quick-stats {
+        background: var(--primary-color);
+        color: white;
+        border-radius: 12px;
+        padding: 1.5rem;
+        text-align: center;
+    }
+    
+    .stat-number {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+    
+    .action-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+    }
+    
+    .action-card {
+        background: white;
+        border-radius: 12px;
+        padding: 2rem;
+        text-align: center;
+        border: 2px solid #f8f9fa;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        color: inherit;
+    }
+    
+    .action-card:hover {
+        border-color: var(--primary-color);
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        color: inherit;
+        text-decoration: none;
+    }
+    
+    .action-icon {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+        color: white;
+        font-size: 2rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Dashboard Header -->
+<div class="dashboard-header">
+    <div class="container">
+        <h1 class="display-5 mb-0">Welcome back, {{ user.get_full_name|default:user.username }}!</h1>
+        <p class="lead mb-0 opacity-75">Manage your bookings and discover new destinations</p>
+    </div>
+</div>
+
+<div class="container">
+    <!-- Welcome Card -->
+    <div class="welcome-card">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h3 class="text-primary mb-3">Your Travel Dashboard</h3>
+                <p class="lead mb-3">Track your bookings, manage your profile, and explore amazing destinations worldwide.</p>
+                <a href="{% url 'hotels:hotel_list' %}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-search me-2"></i>Find Hotels
+                </a>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="quick-stats">
+                    <div class="stat-number">{{ total_bookings }}</div>
+                    <div>Total Bookings</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Quick Actions -->
+    <div class="action-grid">
+        <a href="{% url 'hotels:hotel_list' %}" class="action-card">
+            <div class="action-icon">
+                <i class="fas fa-search"></i>
+            </div>
+            <h5>Search Hotels</h5>
+            <p class="text-muted">Find and book amazing accommodations worldwide</p>
+        </a>
+        
+        <a href="{% url 'accounts:profile' %}" class="action-card">
+            <div class="action-icon">
+                <i class="fas fa-user-edit"></i>
+            </div>
+            <h5>My Profile</h5>
+            <p class="text-muted">Update your personal information and preferences</p>
+        </a>
+        
+        <a href="#" class="action-card">
+            <div class="action-icon">
+                <i class="fas fa-heart"></i>
+            </div>
+            <h5>Wishlist</h5>
+            <p class="text-muted">View your saved hotels and favorite destinations</p>
+        </a>
+        
+        <a href="#" class="action-card">
+            <div class="action-icon">
+                <i class="fas fa-headset"></i>
+            </div>
+            <h5>Support</h5>
+            <p class="text-muted">Get help with your bookings or account</p>
+        </a>
+    </div>
+    
+    <div class="row">
+        <!-- Recent Bookings -->
+        <div class="col-lg-8 mb-4">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-calendar-check me-2"></i>My Bookings</h5>
+                </div>
+                <div class="card-body p-0">
+                    {% for booking in bookings %}
+                    <div class="booking-card p-3 border-bottom">
+                        <div class="row align-items-center">
+                            <div class="col-md-3">
+                                {% if booking.hotel.main_image %}
+                                <img src="{{ booking.hotel.main_image.url }}" alt="{{ booking.hotel.name }}" 
+                                     class="img-fluid rounded" style="height: 80px; object-fit: cover;">
+                                {% else %}
+                                <div class="bg-light rounded d-flex align-items-center justify-content-center" 
+                                     style="height: 80px;">
+                                    <i class="fas fa-hotel text-muted fa-2x"></i>
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <h6 class="fw-bold mb-1">{{ booking.hotel.name }}</h6>
+                                <p class="text-muted small mb-1">
+                                    <i class="fas fa-map-marker-alt me-1"></i>{{ booking.hotel.city }}
+                                </p>
+                                <p class="mb-1">
+                                    <strong>{{ booking.check_in|date:"M d" }} - {{ booking.check_out|date:"M d, Y" }}</strong>
+                                    <span class="text-muted">({{ booking.nights_count }} nights)</span>
+                                </p>
+                                <p class="mb-0">
+                                    <i class="fas fa-users me-1"></i>{{ booking.total_guests }} guest{{ booking.total_guests|pluralize }}
+                                </p>
+                            </div>
+                            <div class="col-md-3 text-end">
+                                <div class="mb-2">
+                                    <span class="booking-status status-{{ booking.status }}">
+                                        {{ booking.get_status_display }}
+                                    </span>
+                                </div>
+                                <div class="fw-bold text-success mb-2">${{ booking.total_amount }}</div>
+                                <div class="btn-group btn-group-sm">
+                                    <button class="btn btn-outline-primary" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    {% if booking.can_cancel %}
+                                    <button class="btn btn-outline-danger" title="Cancel">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="text-center py-5">
+                        <i class="fas fa-calendar-times fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">No bookings yet</h5>
+                        <p class="text-muted mb-3">Start planning your next trip!</p>
+                        <a href="{% url 'hotels:hotel_list' %}" class="btn btn-primary">
+                            <i class="fas fa-search me-2"></i>Find Hotels
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% if bookings %}
+                <div class="card-footer text-center">
+                    <a href="#" class="btn btn-outline-primary">
+                        View All Bookings
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Profile Summary -->
+        <div class="col-lg-4 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="mb-0"><i class="fas fa-user me-2"></i>Profile Summary</h6>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        {% if user.profile_picture %}
+                        <img src="{{ user.profile_picture.url }}" alt="Profile" 
+                             class="rounded-circle me-3" style="width: 60px; height: 60px; object-fit: cover;">
+                        {% else %}
+                        <div class="bg-primary rounded-circle me-3 d-flex align-items-center justify-content-center" 
+                             style="width: 60px; height: 60px;">
+                            <i class="fas fa-user text-white fa-lg"></i>
+                        </div>
+                        {% endif %}
+                        <div>
+                            <h6 class="mb-0">{{ user.get_full_name|default:user.username }}</h6>
+                            <small class="text-muted">{{ user.email }}</small>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <small class="text-muted d-block">Member since</small>
+                        <strong>{{ user.date_joined|date:"F Y" }}</strong>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <small class="text-muted d-block">Preferred Currency</small>
+                        <strong>{{ user.preferred_currency|default:"USD" }}</strong>
+                    </div>
+                    
+                    <div class="d-grid">
+                        <a href="{% url 'accounts:profile_edit' %}" class="btn btn-outline-primary">
+                            <i class="fas fa-edit me-2"></i>Edit Profile
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Travel Stats -->
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h6 class="mb-0"><i class="fas fa-chart-bar me-2"></i>Travel Stats</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-6">
+                            <div class="border-end">
+                                <div class="h4 text-primary mb-0">{{ total_bookings }}</div>
+                                <small class="text-muted">Bookings</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="h4 text-success mb-0">0</div>
+                            <small class="text-muted">Countries</small>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="text-center">
+                        <small class="text-muted">Next trip in:</small>
+                        {% if bookings.0 %}
+                        <div class="fw-bold">{{ bookings.0.check_in|timeuntil }}</div>
+                        {% else %}
+                        <div class="text-muted">No upcoming trips</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Recommendations -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-magic me-2"></i>Recommended for You</h5>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info">
+                        <i class="fas fa-lightbulb me-2"></i>
+                        <strong>Coming Soon!</strong> Personalized hotel recommendations based on your preferences and booking history.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Add click handlers for action cards
+    document.querySelectorAll('.action-card').forEach(card => {
+        card.addEventListener('click', function(e) {
+            if (this.href.includes('#')) {
+                e.preventDefault();
+                const title = this.querySelector('h5').textContent;
+                BookingMVP.showNotification(`${title} feature coming soon!`, 'info');
+            }
+        });
+    });
+    
+    // Add booking action handlers
+    document.querySelectorAll('[title="View Details"]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            BookingMVP.showNotification('Booking details page coming soon!', 'info');
+        });
+    });
+    
+    document.querySelectorAll('[title="Cancel"]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            if (confirm('Are you sure you want to cancel this booking?')) {
+                BookingMVP.showNotification('Booking cancellation feature coming soon!', 'info');
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Cancelled - {{ site_name }}</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        
+        .email-container {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 300;
+        }
+        
+        .content {
+            padding: 40px 30px;
+        }
+        
+        .booking-info {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #e74c3c;
+        }
+        
+        .booking-info h3 {
+            color: #e74c3c;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .info-row:last-child {
+            border-bottom: none;
+        }
+        
+        .info-label {
+            font-weight: 600;
+            color: #666;
+        }
+        
+        .info-value {
+            color: #333;
+        }
+        
+        .cancellation-reason {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .refund-info {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .refund-info h4 {
+            color: #0c5460;
+            margin-top: 0;
+        }
+        
+        .button-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 20px 30px;
+            text-align: center;
+        }
+        
+        .footer p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        
+        .social-links {
+            margin: 20px 0;
+        }
+        
+        .social-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 18px;
+        }
+        
+        .contact-info {
+            background: #ecf0f1;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .contact-info h4 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            
+            .content {
+                padding: 20px 15px;
+            }
+            
+            .header {
+                padding: 20px 15px;
+            }
+            
+            .info-row {
+                flex-direction: column;
+            }
+            
+            .info-label {
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>🚫 Booking Cancelled</h1>
+            <p>Your reservation has been cancelled</p>
+        </div>
+        
+        <div class="content">
+            <p>Hello {{ booking.guest.get_full_name|default:booking.guest.username }},</p>
+            
+            <p>We regret to inform you that your booking has been cancelled. Please find the details below:</p>
+            
+            <div class="booking-info">
+                <h3>Cancelled Booking Details</h3>
+                <div class="info-row">
+                    <span class="info-label">Booking ID:</span>
+                    <span class="info-value">{{ booking.booking_id }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Hotel:</span>
+                    <span class="info-value">{{ booking.hotel.name }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Location:</span>
+                    <span class="info-value">{{ booking.hotel.city }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Check-in Date:</span>
+                    <span class="info-value">{{ booking.check_in_date|date:"F d, Y" }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Check-out Date:</span>
+                    <span class="info-value">{{ booking.check_out_date|date:"F d, Y" }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Number of Guests:</span>
+                    <span class="info-value">{{ booking.num_guests }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Total Amount:</span>
+                    <span class="info-value">${{ booking.total_amount }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Cancellation Date:</span>
+                    <span class="info-value">{{ booking.updated_at|date:"F d, Y g:i A" }}</span>
+                </div>
+            </div>
+            
+            {% if cancellation_reason %}
+            <div class="cancellation-reason">
+                <h4>📝 Cancellation Reason</h4>
+                <p>{{ cancellation_reason }}</p>
+            </div>
+            {% endif %}
+            
+            <div class="refund-info">
+                <h4>💰 Refund Information</h4>
+                {% if refund_amount %}
+                    <p><strong>Refund Amount:</strong> ${{ refund_amount }}</p>
+                    <p><strong>Processing Time:</strong> {{ refund_processing_time|default:"3-5 business days" }}</p>
+                    <p>Your refund will be processed back to the original payment method used for this booking.</p>
+                {% else %}
+                    <p>Unfortunately, this booking is not eligible for a refund based on our cancellation policy. If you have any questions, please contact our customer support team.</p>
+                {% endif %}
+            </div>
+            
+            <div class="contact-info">
+                <h4>📞 Need Help?</h4>
+                <p>If you have any questions about this cancellation or need assistance with a new booking, our customer support team is here to help:</p>
+                <p><strong>Email:</strong> {{ support_email|default:"support@bookingmvp.com" }}</p>
+                <p><strong>Phone:</strong> {{ support_phone|default:"+1 (555) 123-4567" }}</p>
+                <p><strong>Hours:</strong> Monday - Friday, 9:00 AM - 6:00 PM EST</p>
+            </div>
+            
+            <div class="button-container">
+                <a href="{{ booking_search_url|default:"#" }}" class="btn">Search New Hotels</a>
+            </div>
+            
+            <p>We apologize for any inconvenience this cancellation may have caused. We hope to serve you again in the future.</p>
+            
+            <p>Best regards,<br>
+            The {{ site_name|default:"BookingMVP" }} Team</p>
+        </div>
+        
+        <div class="footer">
+            <div class="social-links">
+                <a href="#" title="Facebook">📘</a>
+                <a href="#" title="Twitter">🐦</a>
+                <a href="#" title="Instagram">📷</a>
+                <a href="#" title="LinkedIn">💼</a>
+            </div>
+            <p>&copy; {{ current_year|default:"2024" }} {{ site_name|default:"BookingMVP" }}. All rights reserved.</p>
+            <p>{{ company_address|default:"123 Travel Street, Booking City, BC 12345" }}</p>
+            <p>
+                <a href="{{ privacy_policy_url|default:"#" }}" style="color: #bdc3c7;">Privacy Policy</a> | 
+                <a href="{{ terms_url|default:"#" }}" style="color: #bdc3c7;">Terms of Service</a> | 
+                <a href="{{ unsubscribe_url|default:"#" }}" style="color: #bdc3c7;">Unsubscribe</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
